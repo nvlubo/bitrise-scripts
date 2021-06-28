@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 #
 # Input Variables:
 #   BITRISE_GIT_TAG in format x.x.x.x
@@ -35,9 +37,14 @@ else
     sed -i "s/^UI_SDK_VERSION_PROD=.*$/UI_SDK_VERSION_PROD=$uiSdkVersion/g" $GRADLE_PROP_FILE
 fi
 
-#
-# Commit the change
-# 
+# Compute the new prod version
+patchVersion=$((patchVersion+1))
+prodVersion="$majorVersion.$minorVersion.$patchVersion-BETA"
+
+# create a new branch for committing changes
+git checkout -b $prodVersion $BITRISE_GIT_TAG
+
+# Commit the change 
 git add $GRADLE_PROP_FILE
 COMMIT_MSG=$(cat <<EOF
 chore: prepare for playstore release
@@ -49,7 +56,5 @@ git push origin
 #
 # Tag it for release
 # 
-patchVersion=$((patchVersion+1))
-nextVersion="$majorVersion.$minorVersion.$patchVersion-BETA"
-git tag "$nextVersion"
-git push origin : "$nextVersion"
+git tag "$prodVersion"
+git push origin : "$prodVersion"
