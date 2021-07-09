@@ -62,4 +62,4 @@ echo "Pushing to upstream"
 # Tag it for release
 # 
 git tag "$prodVersion"
-git push origin $prodVersion:"$prodVersion"
+git push origin refs/tags/$prodVersion:"$prodVersion"
