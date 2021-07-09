@@ -54,6 +54,8 @@ chore: prepare for playstore release
 EOF
 )
 git commit -m "$COMMIT_MSG"
+
+echo "Pushing to upstream"
 git push origin
 
 #
