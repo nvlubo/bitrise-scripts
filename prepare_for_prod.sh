@@ -60,4 +60,4 @@ git commit -m "$COMMIT_MSG"
 # Tag it for release
 # 
 git tag "$prodVersion"
-git push origin "$prodVersion"
+git push origin :"$prodVersion"
