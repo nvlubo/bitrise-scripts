@@ -56,10 +56,10 @@ EOF
 git commit -m "$COMMIT_MSG"
 
 echo "Pushing to upstream"
-git push origin
+git push --set-upstream origin $prodVersion
 
 #
 # Tag it for release
 # 
 git tag "$prodVersion"
-git push origin :"$prodVersion"
+git push origin $prodVersion:"$prodVersion"
