@@ -2,6 +2,8 @@
 
 set -e
 
+set -x
+
 #
 # Input Variables:
 #   BITRISE_GIT_TAG in format x.x.x.x
@@ -40,6 +42,7 @@ fi
 # Compute the new prod version
 patchVersion=$((patchVersion+1))
 prodVersion="$majorVersion.$minorVersion.$patchVersion-RELEASE"
+upstreamBranch="support/${majorVersion}.${minorVersion}"
 
 # create a new branch for committing changes
 git checkout -b $prodVersion $BITRISE_GIT_TAG
@@ -51,10 +54,10 @@ chore: prepare for playstore release
 EOF
 )
 git commit -m "$COMMIT_MSG"
-git push --set-upstream origin $prodVersion
+#git push --set-upstream origin $upstreamBranch
 
 #
 # Tag it for release
 # 
 git tag "$prodVersion"
-git push origin : "$prodVersion"
+git push origin "$prodVersion"
