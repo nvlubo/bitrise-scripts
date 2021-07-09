@@ -54,7 +54,7 @@ chore: prepare for playstore release
 EOF
 )
 git commit -m "$COMMIT_MSG"
-#git push --set-upstream origin $upstreamBranch
+git push origin
 
 #
 # Tag it for release
